@@ -16,7 +16,7 @@ const Section: React.FC<{ title: string; icon: React.ReactNode; children: React.
         {icon}
         {title}
       </h3>
-      <div className="text-[11pt] text-foreground/90">{children}</div>
+      <div className="text-[10pt] text-foreground/90">{children}</div>
     </section>
   );
 
@@ -48,7 +48,7 @@ const PersonalDetailsContent: React.FC<{ personalInfo: CvData['personalInfo'], p
           <User className="w-4 h-4"/>
           Contact
       </h3>
-      <div className="flex flex-col gap-3 text-[11pt]">
+      <div className="flex flex-col gap-3 text-[10pt]">
           <div className="flex items-start gap-3">
               <Mail className="w-3.5 h-3.5 mt-0.5 shrink-0" />
               <a href={`mailto:${personalInfo.email}`} className="hover:underline break-all">{personalInfo.email}</a>
@@ -72,7 +72,7 @@ const PersonalDetailsContent: React.FC<{ personalInfo: CvData['personalInfo'], p
           </h3>
         <div className="flex flex-col gap-2">
           {skills.map((skill) => (
-            <span key={skill.id} className="text-[11pt]">
+            <span key={skill.id} className="text-[10pt]">
               {skill.name}
             </span>
           ))}
@@ -93,12 +93,12 @@ export function CvPreview({ cvData, profilePictureUrl }: CvPreviewProps) {
       style={{ fontFamily: "'Segoe UI', sans-serif" }}
     >
       {/* --- Screen Only Version --- */}
-      <aside className="w-1/3 bg-primary/5 p-8 flex-col text-sm text-foreground/80 print-aside-col">
+      <aside className="w-1/4 bg-primary/5 p-8 flex-col text-sm text-foreground/80 print-aside-col">
          <PersonalDetailsContent personalInfo={personalInfo} profilePictureUrl={profilePictureUrl} skills={skills} />
       </aside>
 
       {/* --- Main Content --- */}
-      <main className="w-2/3 p-10 bg-card print-main-col" style={{ fontFamily: "'Calibri', sans-serif" }}>
+      <main className="w-3/4 p-10 bg-card print-main-col" style={{ fontFamily: "'Calibri', sans-serif" }}>
          {/* --- Print Only Header --- */}
          <div className="hidden print-header-col">
             <PersonalDetailsContent personalInfo={personalInfo} profilePictureUrl={profilePictureUrl} skills={skills} forPrint />
@@ -118,7 +118,7 @@ export function CvPreview({ cvData, profilePictureUrl }: CvPreviewProps) {
                     <p className="text-xs font-medium text-foreground/60">{exp.startDate} - {exp.endDate}</p>
                   </div>
                   <p className="font-semibold text-primary/90 text-sm mb-1">{exp.company}</p>
-                  <p className="text-foreground/80 text-[11pt] leading-relaxed whitespace-pre-line">{exp.description}</p>
+                  <p className="text-foreground/80 text-[10pt] leading-relaxed whitespace-pre-line">{exp.description}</p>
                 </div>
               ))}
             </div>
