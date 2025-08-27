@@ -2,7 +2,7 @@
 
 import type { CvData } from "@/lib/cv-schema";
 import Image from "next/image";
-import { Mail, Phone, MapPin, Briefcase, GraduationCap, Sparkles, User, FileText, Heart } from "lucide-react";
+import { Mail, Phone, MapPin, Briefcase, GraduationCap, Sparkles, User, FileText, Heart, Award } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 type CvPreviewProps = {
@@ -100,7 +100,7 @@ const PersonalDetailsContent: React.FC<{ personalInfo: CvData['personalInfo'], p
 
 
 export function CvPreview({ cvData, profilePictureUrl }: CvPreviewProps) {
-  const { personalInfo, summary, experience, education, skills, interests } = cvData;
+  const { personalInfo, summary, experience, academicBackground, trainings, skills, interests } = cvData;
 
   return (
     <div
@@ -141,16 +141,32 @@ export function CvPreview({ cvData, profilePictureUrl }: CvPreviewProps) {
           </Section>
         )}
 
-        {education.length > 0 && (
-          <Section title="Formation" icon={<GraduationCap className="w-4 h-4" />}>
+        {academicBackground.length > 0 && (
+          <Section title="Parcours Académique" icon={<GraduationCap className="w-4 h-4" />}>
             <div className="space-y-4">
-              {education.map((edu) => (
+              {academicBackground.map((edu) => (
                 <div key={edu.id}>
                   <div className="flex justify-between items-baseline">
                     <h4 className="font-bold text-base">{edu.degree}</h4>
                     <p className="text-xs font-medium text-foreground/60">{edu.startDate} - {edu.endDate}</p>
                   </div>
                   <p className="font-semibold text-primary/90 text-sm">{edu.school}</p>
+                </div>
+              ))}
+            </div>
+          </Section>
+        )}
+
+        {trainings.length > 0 && (
+          <Section title="Formation" icon={<Award className="w-4 h-4" />}>
+            <div className="space-y-4">
+              {trainings.map((training) => (
+                <div key={training.id}>
+                  <div className="flex justify-between items-baseline">
+                    <h4 className="font-bold text-base">{training.name}</h4>
+                    <p className="text-xs font-medium text-foreground/60">{training.year}</p>
+                  </div>
+                  <p className="font-semibold text-primary/90 text-sm">{training.organization}</p>
                 </div>
               ))}
             </div>

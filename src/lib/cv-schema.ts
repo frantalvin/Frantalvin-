@@ -10,12 +10,19 @@ export const experienceSchema = z.object({
   description: z.string().max(500, "La description est trop longue"),
 });
 
-export const educationSchema = z.object({
+export const academicBackgroundSchema = z.object({
   id: z.string(),
   degree: z.string().min(1, "Le diplôme est requis"),
   school: z.string().min(1, "L'école est requise"),
   startDate: z.string(),
   endDate: z.string(),
+});
+
+export const trainingSchema = z.object({
+  id: z.string(),
+  name: z.string().min(1, "Le nom de la formation est requis"),
+  organization: z.string().min(1, "L'organisme est requis"),
+  year: z.string(),
 });
 
 export const skillSchema = z.object({
@@ -38,7 +45,8 @@ export const cvSchema = z.object({
   }),
   summary: z.string().max(1000, "Le résumé est trop long"),
   experience: z.array(experienceSchema),
-  education: z.array(educationSchema),
+  academicBackground: z.array(academicBackgroundSchema),
+  trainings: z.array(trainingSchema),
   skills: z.array(skillSchema),
   interests: z.array(interestSchema),
 });
@@ -49,7 +57,7 @@ export const defaultCvData: CvData = {
   personalInfo: {
     fullName: "Alexandre Dubois",
     jobTitle: "Développeur Full-Stack",
-    email: "alex.dubois@email.com",
+    email: "alexandre.dubois.dev@email.com",
     phone: "06 12 34 56 78",
     address: "123 Rue de la République, Paris",
   },
@@ -72,13 +80,21 @@ export const defaultCvData: CvData = {
       description: "Développement de fonctionnalités front-end et back-end pour des applications SaaS, amélioration des performances et de l'expérience utilisateur.",
     },
   ],
-  education: [
+  academicBackground: [
     {
       id: uuidv4(),
       degree: "Master en Informatique",
       school: "Université de Paris",
       startDate: "2017",
       endDate: "2019",
+    },
+  ],
+  trainings: [
+    {
+      id: uuidv4(),
+      name: "Certification AWS Certified Developer",
+      organization: "Amazon Web Services",
+      year: "2022",
     },
   ],
   skills: [

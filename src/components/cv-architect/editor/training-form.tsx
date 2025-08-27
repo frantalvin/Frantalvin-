@@ -13,11 +13,11 @@ import { Plus, Trash2 } from "lucide-react";
 import { CvData } from "@/lib/cv-schema";
 import { v4 as uuidv4 } from 'uuid';
 
-export function EducationForm() {
+export function TrainingForm() {
   const { control } = useFormContext<CvData>();
   const { fields, append, remove } = useFieldArray({
     control,
-    name: "academicBackground",
+    name: "trainings",
   });
 
   return (
@@ -26,25 +26,12 @@ export function EducationForm() {
         <div key={item.id} className="p-4 border rounded-lg space-y-4 relative">
           <FormField
             control={control}
-            name={`academicBackground.${index}.degree`}
+            name={`trainings.${index}.name`}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Diplôme</FormLabel>
+                <FormLabel>Nom de la formation</FormLabel>
                 <FormControl>
-                  <Input placeholder="Master en Informatique" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={control}
-            name={`academicBackground.${index}.school`}
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>École / Université</FormLabel>
-                <FormControl>
-                  <Input placeholder="Université de Paris" {...field} />
+                  <Input placeholder="Certification..." {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -53,12 +40,12 @@ export function EducationForm() {
           <div className="grid grid-cols-2 gap-4">
             <FormField
               control={control}
-              name={`academicBackground.${index}.startDate`}
+              name={`trainings.${index}.organization`}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Date de début</FormLabel>
+                  <FormLabel>Organisme</FormLabel>
                   <FormControl>
-                    <Input placeholder="2017" {...field} />
+                    <Input placeholder="Organisme de formation" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -66,12 +53,12 @@ export function EducationForm() {
             />
             <FormField
               control={control}
-              name={`academicBackground.${index}.endDate`}
+              name={`trainings.${index}.year`}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Date de fin</FormLabel>
+                  <FormLabel>Année</FormLabel>
                   <FormControl>
-                    <Input placeholder="2019" {...field} />
+                    <Input placeholder="2023" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -92,10 +79,10 @@ export function EducationForm() {
       <Button
         type="button"
         variant="outline"
-        onClick={() => append({ id: uuidv4(), degree: "", school: "", startDate: "", endDate: "" })}
+        onClick={() => append({ id: uuidv4(), name: "", organization: "", year: "" })}
       >
         <Plus className="mr-2 h-4 w-4" />
-        Ajouter un diplôme
+        Ajouter une formation
       </Button>
     </div>
   );
