@@ -24,7 +24,9 @@ export function CvHeader() {
         scale: 2,
         useCORS: true,
         backgroundColor: null,
+        width: cvElement.scrollWidth,
         height: cvElement.scrollHeight,
+        windowWidth: cvElement.scrollWidth,
         windowHeight: cvElement.scrollHeight,
       });
 

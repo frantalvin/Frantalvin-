@@ -40,13 +40,13 @@ export function CVArchitectApp() {
   }, [profilePictureUrl]);
 
   return (
-    <div className="flex flex-col h-full bg-background">
+    <div className="flex flex-col h-screen bg-background">
       <CvHeader />
-      <main className="flex-grow grid grid-cols-1 lg:grid-cols-2 lg:overflow-hidden">
+      <main className="flex-1 grid grid-cols-1 lg:grid-cols-2 lg:overflow-hidden">
         <div className="no-print bg-card lg:border-r h-full overflow-y-auto">
           <CvEditor form={form} onImageUpload={handleImageUpload} />
         </div>
-        <div className="w-full h-full overflow-y-auto">
+        <div className="w-full h-full overflow-y-auto bg-muted/50 pb-12">
           <CvPreview cvData={cvData} profilePictureUrl={profilePictureUrl} />
         </div>
       </main>
