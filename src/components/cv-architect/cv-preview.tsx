@@ -11,15 +11,14 @@ type CvPreviewProps = {
 };
 
 const Section: React.FC<{ title: string; icon: React.ReactNode; children: React.ReactNode; className?: string }> = ({ title, icon, children, className }) => (
-  <section className={cn("mb-6", className)}>
-    <h3 className="flex items-center gap-3 text-xl font-bold text-primary mb-4 pb-1 border-b-2 border-primary/20">
-      {icon}
-      {title}
-    </h3>
-    <div className="text-sm text-foreground/90">{children}</div>
-  </section>
-);
-
+    <section className={cn("mb-6", className)}>
+      <h3 className="flex items-center gap-3 text-xl font-bold text-primary mb-4 pb-1 border-b-2 border-primary/20">
+        {icon}
+        {title}
+      </h3>
+      <div className="text-sm text-foreground/90">{children}</div>
+    </section>
+  );
 
 export function CvPreview({ cvData, profilePictureUrl }: CvPreviewProps) {
   const { personalInfo, summary, experience, education, skills } = cvData;
@@ -80,21 +79,17 @@ export function CvPreview({ cvData, profilePictureUrl }: CvPreviewProps) {
   );
 
   return (
-    <div id="cv-preview-container" className="bg-background lg:py-12 lg:px-4 print-container">
+    <div className="bg-background lg:py-12 lg:px-4">
       <div
+        id="cv-preview-container"
         className="w-full max-w-[210mm] min-h-[297mm] bg-card text-card-foreground shadow-lg mx-auto flex font-body"
         style={{ fontFamily: "'Inter', sans-serif" }}
       >
-        {/* Left Column - Screen Only */}
-        <aside className="print-aside-col w-1/3 bg-primary/5 p-8 flex-col text-sm text-foreground/80">
+        <aside className="w-1/3 bg-primary/5 p-8 flex-col text-sm text-foreground/80">
           {personalDetailsContent}
         </aside>
 
-        {/* Right Column - Main content for screen and print */}
-        <main className="print-main-col w-full lg:w-2/3 p-10 bg-card">
-           {/* Personal details for print only */}
-           <div className="print-only mb-8">{personalDetailsContent}</div>
-           
+        <main className="w-2/3 p-10 bg-card">
            <Section title="Résumé" icon={<FileText className="w-5 h-5" />}>
              <p className="leading-relaxed text-justify">{summary}</p>
           </Section>
