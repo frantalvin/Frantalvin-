@@ -55,11 +55,11 @@ const PersonalDetailsContent: React.FC<{ personalInfo: CvData['personalInfo'], p
           </div>
           <div className="flex items-start gap-3">
               <Phone className="w-3.5 h-3.5 mt-0.5 shrink-0" />
-              <span>{personalInfo.phone}</span>
+              <span className="break-words">{personalInfo.phone}</span>
           </div>
            <div className="flex items-start gap-3">
               <MapPin className="w-3.5 h-3.5 mt-0.5 shrink-0" />
-              <span>{personalInfo.address}</span>
+              <span className="break-words">{personalInfo.address}</span>
           </div>
       </div>
     </div>
@@ -72,7 +72,7 @@ const PersonalDetailsContent: React.FC<{ personalInfo: CvData['personalInfo'], p
           </h3>
         <div className="flex flex-col gap-2">
           {skills.map((skill) => (
-            <span key={skill.id} className="text-[10pt]">
+            <span key={skill.id} className="text-[10pt] break-words">
               {skill.name}
             </span>
           ))}
@@ -93,12 +93,12 @@ export function CvPreview({ cvData, profilePictureUrl }: CvPreviewProps) {
       style={{ fontFamily: "'Segoe UI', sans-serif" }}
     >
       {/* --- Screen Only Version --- */}
-      <aside className="w-1/4 bg-primary/5 p-8 flex-col text-sm text-foreground/80 print-aside-col">
+      <aside className="w-1/3 bg-primary/5 p-8 flex-col text-sm text-foreground/80 print-aside-col">
          <PersonalDetailsContent personalInfo={personalInfo} profilePictureUrl={profilePictureUrl} skills={skills} />
       </aside>
 
       {/* --- Main Content --- */}
-      <main className="w-3/4 p-10 bg-card print-main-col" style={{ fontFamily: "'Calibri', sans-serif" }}>
+      <main className="w-2/3 p-10 bg-card print-main-col" style={{ fontFamily: "'Calibri', sans-serif" }}>
          {/* --- Print Only Header --- */}
          <div className="hidden print-header-col">
             <PersonalDetailsContent personalInfo={personalInfo} profilePictureUrl={profilePictureUrl} skills={skills} forPrint />

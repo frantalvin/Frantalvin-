@@ -36,22 +36,20 @@ export function CvHeader() {
 
       const pdfWidth = pdf.internal.pageSize.getWidth();
       const pdfHeight = pdf.internal.pageSize.getHeight();
-      const imgWidth = canvas.width;
-      const imgHeight = canvas.height;
-      const ratio = imgHeight / imgWidth;
-
-      const imgPdfHeight = pdfWidth * ratio;
-
-      let heightLeft = imgPdfHeight;
+      
+      const imgProps= pdf.getImageProperties(imgData);
+      const imgHeight = (imgProps.height * pdfWidth) / imgProps.width;
+      
+      let heightLeft = imgHeight;
       let position = 0;
 
-      pdf.addImage(imgData, "PNG", 0, position, pdfWidth, imgPdfHeight);
+      pdf.addImage(imgData, "PNG", 0, position, pdfWidth, imgHeight);
       heightLeft -= pdfHeight;
 
       while (heightLeft > 0) {
-        position = heightLeft - imgPdfHeight;
+        position = heightLeft - imgHeight;
         pdf.addPage();
-        pdf.addImage(imgData, "PNG", 0, position, pdfWidth, imgPdfHeight);
+        pdf.addImage(imgData, "PNG", 0, position, pdfWidth, imgHeight);
         heightLeft -= pdfHeight;
       }
       
