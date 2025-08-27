@@ -23,6 +23,11 @@ export const skillSchema = z.object({
   name: z.string().min(1, "Le nom de la compétence ne peut pas être vide"),
 });
 
+export const interestSchema = z.object({
+  id: z.string(),
+  name: z.string().min(1, "Le nom du centre d'intérêt ne peut pas être vide"),
+});
+
 export const cvSchema = z.object({
   personalInfo: z.object({
     fullName: z.string().min(1, "Le nom complet est requis"),
@@ -35,6 +40,7 @@ export const cvSchema = z.object({
   experience: z.array(experienceSchema),
   education: z.array(educationSchema),
   skills: z.array(skillSchema),
+  interests: z.array(interestSchema),
 });
 
 export type CvData = z.infer<typeof cvSchema>;
@@ -81,5 +87,10 @@ export const defaultCvData: CvData = {
     { id: uuidv4(), name: "TypeScript" },
     { id: uuidv4(), name: "SQL" },
     { id: uuidv4(), name: "Docker" },
+  ],
+  interests: [
+    { id: uuidv4(), name: "Randonnée" },
+    { id: uuidv4(), name: "Photographie" },
+    { id: uuidv4(), name: "Jeux de société" },
   ],
 };

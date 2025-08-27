@@ -11,7 +11,8 @@ import { SummaryForm } from "./editor/summary-form";
 import { ExperienceForm } from "./editor/experience-form";
 import { EducationForm } from "./editor/education-form";
 import { SkillsForm } from "./editor/skills-form";
-import { User, Briefcase, GraduationCap, Sparkles as BrainCircuit, FileText } from "lucide-react";
+import { InterestsForm } from "./editor/interests-form";
+import { User, Briefcase, GraduationCap, Sparkles as BrainCircuit, FileText, Heart } from "lucide-react";
 
 type CvEditorProps = {
   form: ReturnType<typeof useForm>;
@@ -49,6 +50,12 @@ const sections = [
     Icon: BrainCircuit,
     Component: SkillsForm,
   },
+  {
+    value: "interests",
+    title: "Centres d'intérêt",
+    Icon: Heart,
+    Component: InterestsForm,
+  },
 ];
 
 export function CvEditor({ form, onImageUpload }: CvEditorProps) {
@@ -60,7 +67,7 @@ export function CvEditor({ form, onImageUpload }: CvEditorProps) {
              <h2 className="text-2xl font-bold tracking-tight">Éditeur de CV</h2>
              <p className="text-muted-foreground">Remplissez les sections pour construire votre CV.</p>
           </div>
-          <Accordion type="multiple" defaultValue={["personal", "summary", "experience", "education", "skills"]} className="w-full">
+          <Accordion type="multiple" defaultValue={["personal", "summary", "experience", "education", "skills", "interests"]} className="w-full">
             {sections.map(({ value, title, Icon, Component }) => (
               <AccordionItem value={value} key={value}>
                 <AccordionTrigger className="text-lg font-semibold hover:no-underline">

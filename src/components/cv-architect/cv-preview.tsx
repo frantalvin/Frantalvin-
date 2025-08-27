@@ -2,7 +2,7 @@
 
 import type { CvData } from "@/lib/cv-schema";
 import Image from "next/image";
-import { Mail, Phone, MapPin, Briefcase, GraduationCap, Sparkles, User, FileText } from "lucide-react";
+import { Mail, Phone, MapPin, Briefcase, GraduationCap, Sparkles, User, FileText, Heart } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 type CvPreviewProps = {
@@ -20,7 +20,7 @@ const Section: React.FC<{ title: string; icon: React.ReactNode; children: React.
     </section>
   );
 
-const PersonalDetailsContent: React.FC<{ personalInfo: CvData['personalInfo'], profilePictureUrl: string | null, skills: CvData['skills'], forPrint?: boolean }> = ({ personalInfo, profilePictureUrl, skills, forPrint = false }) => (
+const PersonalDetailsContent: React.FC<{ personalInfo: CvData['personalInfo'], profilePictureUrl: string | null, skills: CvData['skills'], interests: CvData['interests'], forPrint?: boolean }> = ({ personalInfo, profilePictureUrl, skills, interests, forPrint = false }) => (
   <>
     <div className={cn("flex flex-col text-center", forPrint ? "items-start text-left" : "items-center")}>
       {forPrint && (
@@ -79,12 +79,28 @@ const PersonalDetailsContent: React.FC<{ personalInfo: CvData['personalInfo'], p
         </div>
       </div>
     )}
+
+    {interests.length > 0 && (
+      <div className={forPrint ? "mt-4" : "mt-8"}>
+          <h3 className="flex items-center gap-3 text-sm font-bold uppercase text-primary mb-4 pb-1 border-b-2 border-primary/20">
+              <Heart className="w-4 h-4" />
+              Centres d'intérêt
+          </h3>
+        <div className="flex flex-col gap-2">
+          {interests.map((interest) => (
+            <span key={interest.id} className="text-[10pt] break-words">
+              {interest.name}
+            </span>
+          ))}
+        </div>
+      </div>
+    )}
   </>
 );
 
 
 export function CvPreview({ cvData, profilePictureUrl }: CvPreviewProps) {
-  const { personalInfo, summary, experience, education, skills } = cvData;
+  const { personalInfo, summary, experience, education, skills, interests } = cvData;
 
   return (
     <div
@@ -94,14 +110,14 @@ export function CvPreview({ cvData, profilePictureUrl }: CvPreviewProps) {
     >
       {/* --- Screen Only Version --- */}
       <aside className="w-1/3 bg-primary/5 p-6 flex-col text-sm text-foreground/80 print-aside-col">
-         <PersonalDetailsContent personalInfo={personalInfo} profilePictureUrl={profilePictureUrl} skills={skills} />
+         <PersonalDetailsContent personalInfo={personalInfo} profilePictureUrl={profilePictureUrl} skills={skills} interests={interests} />
       </aside>
 
       {/* --- Main Content --- */}
       <main className="w-2/3 p-8 bg-card print-main-col" style={{ fontFamily: "'Calibri', sans-serif" }}>
          {/* --- Print Only Header --- */}
          <div className="hidden print-header-col">
-            <PersonalDetailsContent personalInfo={personalInfo} profilePictureUrl={profilePictureUrl} skills={skills} forPrint />
+            <PersonalDetailsContent personalInfo={personalInfo} profilePictureUrl={profilePictureUrl} skills={skills} interests={interests} forPrint />
          </div>
 
          <Section title="Résumé" icon={<FileText className="w-4 h-4" />}>
