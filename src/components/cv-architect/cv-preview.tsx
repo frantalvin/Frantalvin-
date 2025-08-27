@@ -2,78 +2,105 @@
 
 import type { CvData } from "@/lib/cv-schema";
 import Image from "next/image";
-import { Mail, Phone, MapPin, Briefcase, GraduationCap, Award } from "lucide-react";
+import { Mail, Phone, MapPin, Briefcase, GraduationCap, Sparkles, User, FileText } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 type CvPreviewProps = {
   cvData: CvData;
   profilePictureUrl: string | null;
 };
 
-const Section: React.FC<{ title: string; icon: React.ReactNode; children: React.ReactNode }> = ({ title, icon, children }) => (
-  <section className="mb-6">
-    <h3 className="flex items-center gap-3 text-lg font-bold text-primary border-b-2 border-accent mb-3 pb-1">
+const Section: React.FC<{ title: string; icon: React.ReactNode; children: React.ReactNode; className?: string }> = ({ title, icon, children, className }) => (
+  <section className={cn("mb-6", className)}>
+    <h3 className="flex items-center gap-3 text-xl font-bold text-primary mb-4 pb-1 border-b-2 border-primary/20">
       {icon}
       {title}
     </h3>
-    {children}
+    <div className="text-sm text-foreground/90">{children}</div>
   </section>
 );
+
 
 export function CvPreview({ cvData, profilePictureUrl }: CvPreviewProps) {
   const { personalInfo, summary, experience, education, skills } = cvData;
 
   return (
-    <div id="cv-preview-container" className="bg-background lg:py-8 lg:px-4">
+    <div id="cv-preview-container" className="bg-background lg:py-12 lg:px-4">
       <div
-        className="w-full max-w-[210mm] min-h-[297mm] bg-card text-card-foreground shadow-lg mx-auto p-8 lg:p-12 font-body text-sm"
+        className="w-full max-w-[210mm] min-h-[297mm] bg-card text-card-foreground shadow-lg mx-auto flex font-body"
         style={{ fontFamily: "'Inter', sans-serif" }}
       >
-        <header className="flex items-center gap-8 mb-8">
-          <div className="relative w-32 h-32 rounded-full overflow-hidden shrink-0 border-4 border-gray-200">
-            <Image
-              src={profilePictureUrl || "https://picsum.photos/200/200"}
-              alt={personalInfo.fullName}
-              fill
-              style={{ objectFit: 'cover' }}
-              data-ai-hint="professional headshot"
-            />
+        {/* Left Column */}
+        <aside className="w-1/3 bg-gray-50 p-8 flex flex-col text-sm">
+          <div className="flex flex-col items-center text-center">
+             <div className="relative w-36 h-36 rounded-full overflow-hidden shrink-0 border-4 border-white shadow-md mb-4">
+               <Image
+                src={profilePictureUrl || "https://picsum.photos/200/200"}
+                alt={personalInfo.fullName}
+                fill
+                style={{ objectFit: 'cover' }}
+                data-ai-hint="professional headshot"
+              />
+            </div>
+            <h1 className="text-3xl font-bold text-primary">{personalInfo.fullName}</h1>
+            <h2 className="text-lg font-semibold text-primary/80 mt-1">{personalInfo.jobTitle}</h2>
           </div>
-          <div className="flex-grow">
-            <h1 className="text-4xl font-bold text-primary">{personalInfo.fullName}</h1>
-            <h2 className="text-xl font-semibold text-primary/80 mt-1">{personalInfo.jobTitle}</h2>
-            <div className="mt-4 flex flex-col gap-2 text-xs text-foreground/80">
-                <div className="flex items-center gap-2">
-                    <Mail className="w-3.5 h-3.5" />
-                    <span>{personalInfo.email}</span>
+
+          <div className="mt-8">
+            <h3 className="flex items-center gap-3 text-lg font-bold text-primary mb-4 pb-1 border-b-2 border-primary/20">
+                <User className="w-5 h-5"/>
+                Contact
+            </h3>
+            <div className="flex flex-col gap-3 text-xs text-foreground/80">
+                <div className="flex items-start gap-3">
+                    <Mail className="w-3.5 h-3.5 mt-0.5 shrink-0" />
+                    <a href={`mailto:${personalInfo.email}`} className="hover:underline">{personalInfo.email}</a>
                 </div>
-                <div className="flex items-center gap-2">
-                    <Phone className="w-3.5 h-3.5" />
+                <div className="flex items-start gap-3">
+                    <Phone className="w-3.5 h-3.5 mt-0.5 shrink-0" />
                     <span>{personalInfo.phone}</span>
                 </div>
-                 <div className="flex items-center gap-2">
-                    <MapPin className="w-3.5 h-3.5" />
+                 <div className="flex items-start gap-3">
+                    <MapPin className="w-3.5 h-3.5 mt-0.5 shrink-0" />
                     <span>{personalInfo.address}</span>
                 </div>
             </div>
           </div>
-        </header>
+          
+          {skills.length > 0 && (
+            <div className="mt-8">
+                <h3 className="flex items-center gap-3 text-lg font-bold text-primary mb-4 pb-1 border-b-2 border-primary/20">
+                    <Sparkles className="w-5 h-5" />
+                    Compétences
+                </h3>
+              <div className="flex flex-col gap-2">
+                {skills.map((skill) => (
+                  <span key={skill.id} className="text-foreground/80 text-sm">
+                    {skill.name}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+        </aside>
 
-        <main>
-          <section className="mb-6">
-            <p className="text-foreground/90 leading-relaxed text-justify">{summary}</p>
-          </section>
+        {/* Right Column */}
+        <main className="w-2/3 p-10">
+           <Section title="Résumé" icon={<FileText className="w-5 h-5" />}>
+             <p className="leading-relaxed text-justify">{summary}</p>
+          </Section>
 
           {experience.length > 0 && (
             <Section title="Expérience Professionnelle" icon={<Briefcase className="w-5 h-5" />}>
-              <div className="space-y-4">
+              <div className="space-y-5">
                 {experience.map((exp) => (
                   <div key={exp.id}>
-                    <div className="flex justify-between items-baseline">
-                      <h4 className="font-bold">{exp.jobTitle}</h4>
-                      <p className="text-xs font-medium text-foreground/70">{exp.startDate} - {exp.endDate}</p>
+                    <div className="flex justify-between items-baseline mb-1">
+                      <h4 className="font-bold text-base">{exp.jobTitle}</h4>
+                      <p className="text-xs font-medium text-foreground/60">{exp.startDate} - {exp.endDate}</p>
                     </div>
                     <p className="font-semibold text-primary/90 text-sm mb-1">{exp.company}</p>
-                    <p className="text-foreground/80 text-sm leading-relaxed">{exp.description}</p>
+                    <p className="text-foreground/80 text-sm leading-relaxed whitespace-pre-line">{exp.description}</p>
                   </div>
                 ))}
               </div>
@@ -82,27 +109,15 @@ export function CvPreview({ cvData, profilePictureUrl }: CvPreviewProps) {
 
           {education.length > 0 && (
             <Section title="Formation" icon={<GraduationCap className="w-5 h-5" />}>
-              <div className="space-y-3">
+              <div className="space-y-4">
                 {education.map((edu) => (
                   <div key={edu.id}>
                     <div className="flex justify-between items-baseline">
-                      <h4 className="font-bold">{edu.degree}</h4>
-                      <p className="text-xs font-medium text-foreground/70">{edu.startDate} - {edu.endDate}</p>
+                      <h4 className="font-bold text-base">{edu.degree}</h4>
+                      <p className="text-xs font-medium text-foreground/60">{edu.startDate} - {edu.endDate}</p>
                     </div>
                     <p className="font-semibold text-primary/90 text-sm">{edu.school}</p>
                   </div>
-                ))}
-              </div>
-            </Section>
-          )}
-
-          {skills.length > 0 && (
-            <Section title="Compétences" icon={<Award className="w-5 h-5" />}>
-              <div className="flex flex-wrap gap-2">
-                {skills.map((skill) => (
-                  <span key={skill.id} className="bg-accent/30 text-primary font-medium text-xs px-3 py-1 rounded-full">
-                    {skill.name}
-                  </span>
                 ))}
               </div>
             </Section>
