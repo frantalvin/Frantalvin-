@@ -76,6 +76,14 @@
   .no-print {
     display: none !important;
   }
+
+  .print-only {
+    display: block !important;
+  }
+
+  .screen-only {
+    display: none !important;
+  }
   
   #cv-preview-container {
     display: block !important;
@@ -99,8 +107,7 @@
 
   .print-main-col {
     width: 100% !important;
-    padding-right: 2.5rem !important; /* Re-apply padding for print */
-    padding-left: 2.5rem !important;
+    padding: 2.5rem !important;
   }
   
   .print-aside-col {

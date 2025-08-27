@@ -24,6 +24,61 @@ const Section: React.FC<{ title: string; icon: React.ReactNode; children: React.
 export function CvPreview({ cvData, profilePictureUrl }: CvPreviewProps) {
   const { personalInfo, summary, experience, education, skills } = cvData;
 
+  const personalDetails = (
+    <>
+      <div className="flex flex-col items-center text-center">
+         <div className="relative w-36 h-36 rounded-full overflow-hidden shrink-0 border-4 border-white shadow-md mb-4">
+           <Image
+            src={profilePictureUrl || "https://picsum.photos/200/200"}
+            alt={personalInfo.fullName}
+            fill
+            style={{ objectFit: 'cover' }}
+            data-ai-hint="professional headshot"
+          />
+        </div>
+        <h1 className="text-3xl font-bold text-primary">{personalInfo.fullName}</h1>
+        <h2 className="text-lg font-semibold text-primary/80 mt-1">{personalInfo.jobTitle}</h2>
+      </div>
+
+      <div className="mt-8">
+        <h3 className="flex items-center gap-3 text-lg font-bold text-primary mb-4 pb-1 border-b-2 border-primary/20">
+            <User className="w-5 h-5"/>
+            Contact
+        </h3>
+        <div className="flex flex-col gap-3 text-xs">
+            <div className="flex items-start gap-3">
+                <Mail className="w-3.5 h-3.5 mt-0.5 shrink-0" />
+                <a href={`mailto:${personalInfo.email}`} className="hover:underline break-all">{personalInfo.email}</a>
+            </div>
+            <div className="flex items-start gap-3">
+                <Phone className="w-3.5 h-3.5 mt-0.5 shrink-0" />
+                <span>{personalInfo.phone}</span>
+            </div>
+             <div className="flex items-start gap-3">
+                <MapPin className="w-3.5 h-3.5 mt-0.5 shrink-0" />
+                <span>{personalInfo.address}</span>
+            </div>
+        </div>
+      </div>
+      
+      {skills.length > 0 && (
+        <div className="mt-8">
+            <h3 className="flex items-center gap-3 text-lg font-bold text-primary mb-4 pb-1 border-b-2 border-primary/20">
+                <Sparkles className="w-5 h-5" />
+                Compétences
+            </h3>
+          <div className="flex flex-col gap-2">
+            {skills.map((skill) => (
+              <span key={skill.id} className="text-sm">
+                {skill.name}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+    </>
+  );
+
   return (
     <div id="cv-preview-container" className="bg-background lg:py-12 lg:px-4 print-container">
       <div
@@ -31,61 +86,13 @@ export function CvPreview({ cvData, profilePictureUrl }: CvPreviewProps) {
         style={{ fontFamily: "'Inter', sans-serif" }}
       >
         {/* Left Column */}
-        <aside className="print-aside-col w-1/3 bg-primary/5 p-8 flex flex-col text-sm text-foreground/80">
-          <div className="flex flex-col items-center text-center">
-             <div className="relative w-36 h-36 rounded-full overflow-hidden shrink-0 border-4 border-white shadow-md mb-4">
-               <Image
-                src={profilePictureUrl || "https://picsum.photos/200/200"}
-                alt={personalInfo.fullName}
-                fill
-                style={{ objectFit: 'cover' }}
-                data-ai-hint="professional headshot"
-              />
-            </div>
-            <h1 className="text-3xl font-bold text-primary">{personalInfo.fullName}</h1>
-            <h2 className="text-lg font-semibold text-primary/80 mt-1">{personalInfo.jobTitle}</h2>
-          </div>
-
-          <div className="mt-8">
-            <h3 className="flex items-center gap-3 text-lg font-bold text-primary mb-4 pb-1 border-b-2 border-primary/20">
-                <User className="w-5 h-5"/>
-                Contact
-            </h3>
-            <div className="flex flex-col gap-3 text-xs">
-                <div className="flex items-start gap-3">
-                    <Mail className="w-3.5 h-3.5 mt-0.5 shrink-0" />
-                    <a href={`mailto:${personalInfo.email}`} className="hover:underline break-all">{personalInfo.email}</a>
-                </div>
-                <div className="flex items-start gap-3">
-                    <Phone className="w-3.5 h-3.5 mt-0.5 shrink-0" />
-                    <span>{personalInfo.phone}</span>
-                </div>
-                 <div className="flex items-start gap-3">
-                    <MapPin className="w-3.5 h-3.5 mt-0.5 shrink-0" />
-                    <span>{personalInfo.address}</span>
-                </div>
-            </div>
-          </div>
-          
-          {skills.length > 0 && (
-            <div className="mt-8">
-                <h3 className="flex items-center gap-3 text-lg font-bold text-primary mb-4 pb-1 border-b-2 border-primary/20">
-                    <Sparkles className="w-5 h-5" />
-                    Compétences
-                </h3>
-              <div className="flex flex-col gap-2">
-                {skills.map((skill) => (
-                  <span key={skill.id} className="text-sm">
-                    {skill.name}
-                  </span>
-                ))}
-              </div>
-            </div>
-          )}
+        <aside className="print-aside-col w-1/3 bg-primary/5 p-8 flex-col text-sm text-foreground/80 screen-only">
+          {personalDetails}
         </aside>
 
         {/* Right Column */}
-        <main className="print-main-col w-2/3 p-10 bg-card">
+        <main className="print-main-col w-full lg:w-2/3 p-10 bg-card">
+           <div className="print-only hidden mb-8">{personalDetails}</div>
            <Section title="Résumé" icon={<FileText className="w-5 h-5" />}>
              <p className="leading-relaxed text-justify">{summary}</p>
           </Section>
