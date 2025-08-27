@@ -46,7 +46,7 @@ export function CVArchitectApp() {
         <div className="no-print bg-card lg:border-r h-full overflow-y-auto">
           <CvEditor form={form} onImageUpload={handleImageUpload} />
         </div>
-        <div className="w-full h-full overflow-y-auto bg-muted/50 pb-12">
+        <div className="w-full h-full overflow-y-auto bg-muted/50">
           <CvPreview cvData={cvData} profilePictureUrl={profilePictureUrl} />
         </div>
       </main>

@@ -28,7 +28,7 @@ const PersonalDetailsContent: React.FC<{ personalInfo: CvData['personalInfo'], p
       )}
       {!forPrint && (
         <>
-          <div className="relative w-36 h-36 rounded-full overflow-hidden shrink-0 border-4 border-white shadow-md mb-4">
+          <div className="relative w-28 h-28 rounded-full overflow-hidden shrink-0 border-4 border-white shadow-md mb-4">
             <Image
               src={profilePictureUrl || "https://picsum.photos/200/200"}
               alt={personalInfo.fullName}
@@ -93,23 +93,23 @@ export function CvPreview({ cvData, profilePictureUrl }: CvPreviewProps) {
       style={{ fontFamily: "'Segoe UI', sans-serif" }}
     >
       {/* --- Screen Only Version --- */}
-      <aside className="w-1/3 bg-primary/5 p-8 flex-col text-sm text-foreground/80 print-aside-col">
+      <aside className="w-1/3 bg-primary/5 p-6 flex-col text-sm text-foreground/80 print-aside-col">
          <PersonalDetailsContent personalInfo={personalInfo} profilePictureUrl={profilePictureUrl} skills={skills} />
       </aside>
 
       {/* --- Main Content --- */}
-      <main className="w-2/3 p-10 bg-card print-main-col" style={{ fontFamily: "'Calibri', sans-serif" }}>
+      <main className="w-2/3 p-8 bg-card print-main-col" style={{ fontFamily: "'Calibri', sans-serif" }}>
          {/* --- Print Only Header --- */}
          <div className="hidden print-header-col">
             <PersonalDetailsContent personalInfo={personalInfo} profilePictureUrl={profilePictureUrl} skills={skills} forPrint />
          </div>
 
-         <Section title="Résumé" icon={<FileText className="w-5 h-5" />}>
+         <Section title="Résumé" icon={<FileText className="w-4 h-4" />}>
            <p className="leading-relaxed text-justify">{summary}</p>
         </Section>
 
         {experience.length > 0 && (
-          <Section title="Expérience Professionnelle" icon={<Briefcase className="w-5 h-5" />}>
+          <Section title="Expérience Professionnelle" icon={<Briefcase className="w-4 h-4" />}>
             <div className="space-y-5">
               {experience.map((exp) => (
                 <div key={exp.id}>
@@ -126,7 +126,7 @@ export function CvPreview({ cvData, profilePictureUrl }: CvPreviewProps) {
         )}
 
         {education.length > 0 && (
-          <Section title="Formation" icon={<GraduationCap className="w-5 h-5" />}>
+          <Section title="Formation" icon={<GraduationCap className="w-4 h-4" />}>
             <div className="space-y-4">
               {education.map((edu) => (
                 <div key={edu.id}>
