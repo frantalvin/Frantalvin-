@@ -12,7 +12,7 @@ type CvPreviewProps = {
 
 const Section: React.FC<{ title: string; icon: React.ReactNode; children: React.ReactNode; className?: string }> = ({ title, icon, children, className }) => (
     <section className={cn("mb-6 print-section", className)}>
-      <h3 className="flex items-center gap-3 text-sm font-bold uppercase text-primary mb-4 pb-1 border-b-2 border-primary/20">
+      <h3 className="relative flex items-center gap-3 text-sm font-bold uppercase text-primary mb-4 pb-2 title-underline">
         {icon}
         {title}
       </h3>
@@ -44,7 +44,7 @@ const PersonalDetailsContent: React.FC<{ personalInfo: CvData['personalInfo'], p
     </div>
 
     <div className={forPrint ? "mt-4" : "mt-8"}>
-      <h3 className={cn("flex items-center gap-3 text-sm font-bold text-primary mb-4 pb-1 border-b-2 border-primary/20", forPrint ? "uppercase" : "")}>
+      <h3 className={cn("relative flex items-center gap-3 text-sm font-bold text-primary mb-4 pb-2 title-underline", forPrint ? "uppercase" : "")}>
           <User className="w-4 h-4"/>
           Contact
       </h3>
@@ -66,7 +66,7 @@ const PersonalDetailsContent: React.FC<{ personalInfo: CvData['personalInfo'], p
     
     {skills.length > 0 && (
       <div className={forPrint ? "mt-4" : "mt-8"}>
-          <h3 className="flex items-center gap-3 text-sm font-bold uppercase text-primary mb-4 pb-1 border-b-2 border-primary/20">
+          <h3 className="relative flex items-center gap-3 text-sm font-bold uppercase text-primary mb-4 pb-2 title-underline">
               <Sparkles className="w-4 h-4" />
               Compétences
           </h3>
@@ -82,7 +82,7 @@ const PersonalDetailsContent: React.FC<{ personalInfo: CvData['personalInfo'], p
 
     {interests.length > 0 && (
       <div className={forPrint ? "mt-4" : "mt-8"}>
-          <h3 className="flex items-center gap-3 text-sm font-bold uppercase text-primary mb-4 pb-1 border-b-2 border-primary/20">
+          <h3 className="relative flex items-center gap-3 text-sm font-bold uppercase text-primary mb-4 pb-2 title-underline">
               <Heart className="w-4 h-4" />
               Centres d'intérêt
           </h3>
