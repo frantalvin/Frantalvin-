@@ -10,19 +10,19 @@
     --card-foreground: 224 10% 10%;
     --popover: 0 0% 100%;
     --popover-foreground: 224 10% 10%;
-    --primary: 217 91% 60%; /* #3b82f6 */
+    --primary: 260 80% 55%; /* Professional Purple */
     --primary-foreground: 0 0% 98%;
     --secondary: 220 13% 91%;
     --secondary-foreground: 224 10% 10%;
     --muted: 220 13% 91%;
     --muted-foreground: 220 9% 46%;
-    --accent: 217 91% 96%; /* Light blue */
-    --accent-foreground: 217 91% 40%;
+    --accent: 260 80% 97%; /* Light purple */
+    --accent-foreground: 260 80% 40%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
     --border: 220 13% 89%;
     --input: 220 13% 89%;
-    --ring: 217 91% 60%;
+    --ring: 260 80% 55%;
     --radius: 0.5rem;
     --chart-1: 12 76% 61%;
     --chart-2: 173 58% 39%;
@@ -38,7 +38,7 @@
     --card-foreground: 210 40% 98%;
     --popover: 222 47% 11%;
     --popover-foreground: 210 40% 98%;
-    --primary: 217 91% 60%;
+    --primary: 260 80% 60%;
     --primary-foreground: 210 40% 98%;
     --secondary: 217 33% 17%;
     --secondary-foreground: 210 40% 98%;
@@ -50,7 +50,7 @@
     --destructive-foreground: 210 40% 98%;
     --border: 217 33% 17%;
     --input: 217 33% 17%;
-    --ring: 217 91% 60%;
+    --ring: 260 80% 60%;
     --chart-1: 220 70% 50%;
     --chart-2: 160 60% 45%;
     --chart-3: 30 80% 55%;
@@ -91,6 +91,20 @@
     transform: scale(1);
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
+  }
+
+  .print-container {
+    padding: 0 !important;
+  }
+
+  .print-main-col {
+    width: 100% !important;
+    padding-right: 2.5rem !important; /* Re-apply padding for print */
+    padding-left: 2.5rem !important;
+  }
+  
+  .print-aside-col {
+    display: none !important;
   }
 
   @page {

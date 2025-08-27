@@ -25,13 +25,13 @@ export function CvPreview({ cvData, profilePictureUrl }: CvPreviewProps) {
   const { personalInfo, summary, experience, education, skills } = cvData;
 
   return (
-    <div id="cv-preview-container" className="bg-background lg:py-12 lg:px-4">
+    <div id="cv-preview-container" className="bg-background lg:py-12 lg:px-4 print-container">
       <div
         className="w-full max-w-[210mm] min-h-[297mm] bg-card text-card-foreground shadow-lg mx-auto flex font-body"
         style={{ fontFamily: "'Inter', sans-serif" }}
       >
         {/* Left Column */}
-        <aside className="w-1/3 bg-gray-50 p-8 flex flex-col text-sm">
+        <aside className="print-aside-col w-1/3 bg-primary/5 p-8 flex flex-col text-sm text-foreground/80">
           <div className="flex flex-col items-center text-center">
              <div className="relative w-36 h-36 rounded-full overflow-hidden shrink-0 border-4 border-white shadow-md mb-4">
                <Image
@@ -51,10 +51,10 @@ export function CvPreview({ cvData, profilePictureUrl }: CvPreviewProps) {
                 <User className="w-5 h-5"/>
                 Contact
             </h3>
-            <div className="flex flex-col gap-3 text-xs text-foreground/80">
+            <div className="flex flex-col gap-3 text-xs">
                 <div className="flex items-start gap-3">
                     <Mail className="w-3.5 h-3.5 mt-0.5 shrink-0" />
-                    <a href={`mailto:${personalInfo.email}`} className="hover:underline">{personalInfo.email}</a>
+                    <a href={`mailto:${personalInfo.email}`} className="hover:underline break-all">{personalInfo.email}</a>
                 </div>
                 <div className="flex items-start gap-3">
                     <Phone className="w-3.5 h-3.5 mt-0.5 shrink-0" />
@@ -75,7 +75,7 @@ export function CvPreview({ cvData, profilePictureUrl }: CvPreviewProps) {
                 </h3>
               <div className="flex flex-col gap-2">
                 {skills.map((skill) => (
-                  <span key={skill.id} className="text-foreground/80 text-sm">
+                  <span key={skill.id} className="text-sm">
                     {skill.name}
                   </span>
                 ))}
@@ -85,7 +85,7 @@ export function CvPreview({ cvData, profilePictureUrl }: CvPreviewProps) {
         </aside>
 
         {/* Right Column */}
-        <main className="w-2/3 p-10">
+        <main className="print-main-col w-2/3 p-10 bg-card">
            <Section title="Résumé" icon={<FileText className="w-5 h-5" />}>
              <p className="leading-relaxed text-justify">{summary}</p>
           </Section>
