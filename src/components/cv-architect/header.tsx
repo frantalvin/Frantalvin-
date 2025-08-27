@@ -21,13 +21,9 @@ export function CvHeader() {
 
     try {
       const canvas = await html2canvas(cvElement, {
-        scale: 2,
+        scale: 2, // Higher scale for better quality
         useCORS: true,
         backgroundColor: null,
-        width: cvElement.scrollWidth,
-        height: cvElement.scrollHeight,
-        windowWidth: cvElement.scrollWidth,
-        windowHeight: cvElement.scrollHeight,
       });
 
       const imgData = canvas.toDataURL("image/png");
@@ -39,10 +35,28 @@ export function CvHeader() {
       });
 
       const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+      const pdfHeight = pdf.internal.pageSize.getHeight();
+      const imgWidth = canvas.width;
+      const imgHeight = canvas.height;
+      const ratio = imgHeight / imgWidth;
 
-      pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+      const imgPdfHeight = pdfWidth * ratio;
+
+      let heightLeft = imgPdfHeight;
+      let position = 0;
+
+      pdf.addImage(imgData, "PNG", 0, position, pdfWidth, imgPdfHeight);
+      heightLeft -= pdfHeight;
+
+      while (heightLeft > 0) {
+        position = heightLeft - imgPdfHeight;
+        pdf.addPage();
+        pdf.addImage(imgData, "PNG", 0, position, pdfWidth, imgPdfHeight);
+        heightLeft -= pdfHeight;
+      }
+      
       pdf.save("cv-architecte.pdf");
+
     } catch (error) {
       console.error("Error generating PDF:", error);
     } finally {
