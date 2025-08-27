@@ -21,9 +21,11 @@ export function CvHeader() {
 
     try {
       const canvas = await html2canvas(cvElement, {
-        scale: 2, // Augmente la résolution pour une meilleure qualité
+        scale: 2,
         useCORS: true,
         backgroundColor: null,
+        height: cvElement.scrollHeight,
+        windowHeight: cvElement.scrollHeight,
       });
 
       const imgData = canvas.toDataURL("image/png");

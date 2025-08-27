@@ -79,55 +79,53 @@ export function CvPreview({ cvData, profilePictureUrl }: CvPreviewProps) {
   );
 
   return (
-    <div className="bg-background lg:py-12 lg:px-4">
-      <div
-        id="cv-preview-container"
-        className="w-full max-w-[210mm] min-h-[297mm] bg-card text-card-foreground shadow-lg mx-auto flex font-body"
-        style={{ fontFamily: "'Inter', sans-serif" }}
-      >
-        <aside className="w-1/3 bg-primary/5 p-8 flex-col text-sm text-foreground/80">
-          {personalDetailsContent}
-        </aside>
+    <div
+      id="cv-preview-container"
+      className="w-full max-w-[210mm] min-h-[297mm] bg-card text-card-foreground shadow-lg mx-auto my-12 flex font-body"
+      style={{ fontFamily: "'Inter', sans-serif" }}
+    >
+      <aside className="w-1/3 bg-primary/5 p-8 flex-col text-sm text-foreground/80">
+        {personalDetailsContent}
+      </aside>
 
-        <main className="w-2/3 p-10 bg-card">
-           <Section title="Résumé" icon={<FileText className="w-5 h-5" />}>
-             <p className="leading-relaxed text-justify">{summary}</p>
+      <main className="w-2/3 p-10 bg-card">
+         <Section title="Résumé" icon={<FileText className="w-5 h-5" />}>
+           <p className="leading-relaxed text-justify">{summary}</p>
+        </Section>
+
+        {experience.length > 0 && (
+          <Section title="Expérience Professionnelle" icon={<Briefcase className="w-5 h-5" />}>
+            <div className="space-y-5">
+              {experience.map((exp) => (
+                <div key={exp.id}>
+                  <div className="flex justify-between items-baseline mb-1">
+                    <h4 className="font-bold text-base">{exp.jobTitle}</h4>
+                    <p className="text-xs font-medium text-foreground/60">{exp.startDate} - {exp.endDate}</p>
+                  </div>
+                  <p className="font-semibold text-primary/90 text-sm mb-1">{exp.company}</p>
+                  <p className="text-foreground/80 text-sm leading-relaxed whitespace-pre-line">{exp.description}</p>
+                </div>
+              ))}
+            </div>
           </Section>
+        )}
 
-          {experience.length > 0 && (
-            <Section title="Expérience Professionnelle" icon={<Briefcase className="w-5 h-5" />}>
-              <div className="space-y-5">
-                {experience.map((exp) => (
-                  <div key={exp.id}>
-                    <div className="flex justify-between items-baseline mb-1">
-                      <h4 className="font-bold text-base">{exp.jobTitle}</h4>
-                      <p className="text-xs font-medium text-foreground/60">{exp.startDate} - {exp.endDate}</p>
-                    </div>
-                    <p className="font-semibold text-primary/90 text-sm mb-1">{exp.company}</p>
-                    <p className="text-foreground/80 text-sm leading-relaxed whitespace-pre-line">{exp.description}</p>
+        {education.length > 0 && (
+          <Section title="Formation" icon={<GraduationCap className="w-5 h-5" />}>
+            <div className="space-y-4">
+              {education.map((edu) => (
+                <div key={edu.id}>
+                  <div className="flex justify-between items-baseline">
+                    <h4 className="font-bold text-base">{edu.degree}</h4>
+                    <p className="text-xs font-medium text-foreground/60">{edu.startDate} - {edu.endDate}</p>
                   </div>
-                ))}
-              </div>
-            </Section>
-          )}
-
-          {education.length > 0 && (
-            <Section title="Formation" icon={<GraduationCap className="w-5 h-5" />}>
-              <div className="space-y-4">
-                {education.map((edu) => (
-                  <div key={edu.id}>
-                    <div className="flex justify-between items-baseline">
-                      <h4 className="font-bold text-base">{edu.degree}</h4>
-                      <p className="text-xs font-medium text-foreground/60">{edu.startDate} - {edu.endDate}</p>
-                    </div>
-                    <p className="font-semibold text-primary/90 text-sm">{edu.school}</p>
-                  </div>
-                ))}
-              </div>
-            </Section>
-          )}
-        </main>
-      </div>
+                  <p className="font-semibold text-primary/90 text-sm">{edu.school}</p>
+                </div>
+              ))}
+            </div>
+          </Section>
+        )}
+      </main>
     </div>
   );
 }
