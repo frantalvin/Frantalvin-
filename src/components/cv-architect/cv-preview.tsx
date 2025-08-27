@@ -11,84 +11,99 @@ type CvPreviewProps = {
 };
 
 const Section: React.FC<{ title: string; icon: React.ReactNode; children: React.ReactNode; className?: string }> = ({ title, icon, children, className }) => (
-    <section className={cn("mb-6", className)}>
-      <h3 className="flex items-center gap-3 text-xl font-bold text-primary mb-4 pb-1 border-b-2 border-primary/20">
+    <section className={cn("mb-6 print-section", className)}>
+      <h3 className="flex items-center gap-3 text-sm font-bold uppercase text-primary mb-4 pb-1 border-b-2 border-primary/20">
         {icon}
         {title}
       </h3>
-      <div className="text-sm text-foreground/90">{children}</div>
+      <div className="text-[11pt] text-foreground/90">{children}</div>
     </section>
   );
 
+const PersonalDetailsContent: React.FC<{ personalInfo: CvData['personalInfo'], profilePictureUrl: string | null, skills: CvData['skills'], forPrint?: boolean }> = ({ personalInfo, profilePictureUrl, skills, forPrint = false }) => (
+  <>
+    <div className={cn("flex flex-col text-center", forPrint ? "items-start text-left" : "items-center")}>
+      {forPrint && (
+        <h1 className="text-xl font-bold text-primary">{personalInfo.fullName}</h1>
+      )}
+      {!forPrint && (
+        <>
+          <div className="relative w-36 h-36 rounded-full overflow-hidden shrink-0 border-4 border-white shadow-md mb-4">
+            <Image
+              src={profilePictureUrl || "https://picsum.photos/200/200"}
+              alt={personalInfo.fullName}
+              fill
+              style={{ objectFit: 'cover' }}
+              data-ai-hint="professional headshot"
+            />
+          </div>
+          <h1 className="text-xl font-bold text-primary">{personalInfo.fullName}</h1>
+        </>
+      )}
+      <h2 className="text-base font-bold text-primary/80 mt-1">{personalInfo.jobTitle}</h2>
+    </div>
+
+    <div className={forPrint ? "mt-4" : "mt-8"}>
+      <h3 className={cn("flex items-center gap-3 text-sm font-bold text-primary mb-4 pb-1 border-b-2 border-primary/20", forPrint ? "uppercase" : "")}>
+          <User className="w-4 h-4"/>
+          Contact
+      </h3>
+      <div className="flex flex-col gap-3 text-[11pt]">
+          <div className="flex items-start gap-3">
+              <Mail className="w-3.5 h-3.5 mt-0.5 shrink-0" />
+              <a href={`mailto:${personalInfo.email}`} className="hover:underline break-all">{personalInfo.email}</a>
+          </div>
+          <div className="flex items-start gap-3">
+              <Phone className="w-3.5 h-3.5 mt-0.5 shrink-0" />
+              <span>{personalInfo.phone}</span>
+          </div>
+           <div className="flex items-start gap-3">
+              <MapPin className="w-3.5 h-3.5 mt-0.5 shrink-0" />
+              <span>{personalInfo.address}</span>
+          </div>
+      </div>
+    </div>
+    
+    {skills.length > 0 && (
+      <div className={forPrint ? "mt-4" : "mt-8"}>
+          <h3 className="flex items-center gap-3 text-sm font-bold uppercase text-primary mb-4 pb-1 border-b-2 border-primary/20">
+              <Sparkles className="w-4 h-4" />
+              Compétences
+          </h3>
+        <div className="flex flex-col gap-2">
+          {skills.map((skill) => (
+            <span key={skill.id} className="text-[11pt]">
+              {skill.name}
+            </span>
+          ))}
+        </div>
+      </div>
+    )}
+  </>
+);
+
+
 export function CvPreview({ cvData, profilePictureUrl }: CvPreviewProps) {
   const { personalInfo, summary, experience, education, skills } = cvData;
-
-  const personalDetailsContent = (
-    <>
-      <div className="flex flex-col items-center text-center">
-         <div className="relative w-36 h-36 rounded-full overflow-hidden shrink-0 border-4 border-white shadow-md mb-4">
-           <Image
-            src={profilePictureUrl || "https://picsum.photos/200/200"}
-            alt={personalInfo.fullName}
-            fill
-            style={{ objectFit: 'cover' }}
-            data-ai-hint="professional headshot"
-          />
-        </div>
-        <h1 className="text-3xl font-bold text-primary">{personalInfo.fullName}</h1>
-        <h2 className="text-lg font-semibold text-primary/80 mt-1">{personalInfo.jobTitle}</h2>
-      </div>
-
-      <div className="mt-8">
-        <h3 className="flex items-center gap-3 text-lg font-bold text-primary mb-4 pb-1 border-b-2 border-primary/20">
-            <User className="w-5 h-5"/>
-            Contact
-        </h3>
-        <div className="flex flex-col gap-3 text-xs">
-            <div className="flex items-start gap-3">
-                <Mail className="w-3.5 h-3.5 mt-0.5 shrink-0" />
-                <a href={`mailto:${personalInfo.email}`} className="hover:underline break-all">{personalInfo.email}</a>
-            </div>
-            <div className="flex items-start gap-3">
-                <Phone className="w-3.5 h-3.5 mt-0.5 shrink-0" />
-                <span>{personalInfo.phone}</span>
-            </div>
-             <div className="flex items-start gap-3">
-                <MapPin className="w-3.5 h-3.5 mt-0.5 shrink-0" />
-                <span>{personalInfo.address}</span>
-            </div>
-        </div>
-      </div>
-      
-      {skills.length > 0 && (
-        <div className="mt-8">
-            <h3 className="flex items-center gap-3 text-lg font-bold text-primary mb-4 pb-1 border-b-2 border-primary/20">
-                <Sparkles className="w-5 h-5" />
-                Compétences
-            </h3>
-          <div className="flex flex-col gap-2">
-            {skills.map((skill) => (
-              <span key={skill.id} className="text-sm">
-                {skill.name}
-              </span>
-            ))}
-          </div>
-        </div>
-      )}
-    </>
-  );
 
   return (
     <div
       id="cv-preview-container"
       className="w-full max-w-[210mm] min-h-[297mm] bg-card text-card-foreground shadow-lg mx-auto my-12 flex font-body"
-      style={{ fontFamily: "'Inter', sans-serif" }}
+      style={{ fontFamily: "'Segoe UI', sans-serif" }}
     >
-      <aside className="w-1/3 bg-primary/5 p-8 flex-col text-sm text-foreground/80">
-        {personalDetailsContent}
+      {/* --- Screen Only Version --- */}
+      <aside className="w-1/3 bg-primary/5 p-8 flex-col text-sm text-foreground/80 print-aside-col">
+         <PersonalDetailsContent personalInfo={personalInfo} profilePictureUrl={profilePictureUrl} skills={skills} />
       </aside>
 
-      <main className="w-2/3 p-10 bg-card">
+      {/* --- Main Content --- */}
+      <main className="w-2/3 p-10 bg-card print-main-col" style={{ fontFamily: "'Calibri', sans-serif" }}>
+         {/* --- Print Only Header --- */}
+         <div className="hidden print-header-col">
+            <PersonalDetailsContent personalInfo={personalInfo} profilePictureUrl={profilePictureUrl} skills={skills} forPrint />
+         </div>
+
          <Section title="Résumé" icon={<FileText className="w-5 h-5" />}>
            <p className="leading-relaxed text-justify">{summary}</p>
         </Section>
@@ -103,7 +118,7 @@ export function CvPreview({ cvData, profilePictureUrl }: CvPreviewProps) {
                     <p className="text-xs font-medium text-foreground/60">{exp.startDate} - {exp.endDate}</p>
                   </div>
                   <p className="font-semibold text-primary/90 text-sm mb-1">{exp.company}</p>
-                  <p className="text-foreground/80 text-sm leading-relaxed whitespace-pre-line">{exp.description}</p>
+                  <p className="text-foreground/80 text-[11pt] leading-relaxed whitespace-pre-line">{exp.description}</p>
                 </div>
               ))}
             </div>
