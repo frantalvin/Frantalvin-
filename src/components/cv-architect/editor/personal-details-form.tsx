@@ -21,6 +21,11 @@ export function PersonalDetailsForm({
   const { control } = useFormContext<CvData>();
   return (
     <div className="space-y-4">
+      <div className="space-y-2">
+        <Label htmlFor="picture">Photo de profil</Label>
+        <Input id="picture" type="file" accept="image/*" onChange={onImageUpload} />
+        <p className="text-xs text-muted-foreground">Téléchargez une photo professionnelle (format carré de préférence).</p>
+      </div>
       <FormField
         control={control}
         name="personalInfo.fullName"
@@ -88,11 +93,6 @@ export function PersonalDetailsForm({
           </FormItem>
         )}
       />
-       <div className="space-y-2">
-          <Label htmlFor="picture">Photo de profil</Label>
-          <Input id="picture" type="file" accept="image/*" onChange={onImageUpload} />
-          <p className="text-xs text-muted-foreground">Téléchargez une photo professionnelle (format carré de préférence).</p>
-        </div>
     </div>
   );
 }
