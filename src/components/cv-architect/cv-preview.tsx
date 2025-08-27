@@ -51,7 +51,7 @@ const PersonalDetailsContent: React.FC<{ personalInfo: CvData['personalInfo'], p
       <div className="flex flex-col gap-3 text-[10pt]">
           <div className="flex items-start gap-3">
               <Mail className="w-3.5 h-3.5 mt-0.5 shrink-0" />
-              <a href={`mailto:${personalInfo.email}`} className="hover:underline break-all">{personalInfo.email}</a>
+              <a href={`mailto:${personalInfo.email}`} className="hover:underline break-words">{personalInfo.email}</a>
           </div>
           <div className="flex items-start gap-3">
               <Phone className="w-3.5 h-3.5 mt-0.5 shrink-0" />
