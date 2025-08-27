@@ -70,7 +70,9 @@
 
 @media print {
   body {
-    background-color: #fff;
+    background-color: #fff !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
 
   .no-print {
@@ -81,10 +83,15 @@
     display: block !important;
   }
 
-  .screen-only {
+  .print-aside-col {
     display: none !important;
   }
   
+  .print-main-col {
+    width: 100% !important;
+    padding: 2.5rem !important;
+  }
+
   #cv-preview-container {
     display: block !important;
     position: absolute;
@@ -97,25 +104,15 @@
     border: none;
     box-shadow: none;
     transform: scale(1);
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
-  }
-
-  .print-container {
-    padding: 0 !important;
-  }
-
-  .print-main-col {
-    width: 100% !important;
-    padding: 2.5rem !important;
-  }
-  
-  .print-aside-col {
-    display: none !important;
   }
 
   @page {
     size: A4;
     margin: 0;
   }
+}
+
+/* Hide print-only elements on screen */
+.print-only {
+  display: none;
 }

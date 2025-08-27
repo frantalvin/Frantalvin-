@@ -24,7 +24,7 @@ const Section: React.FC<{ title: string; icon: React.ReactNode; children: React.
 export function CvPreview({ cvData, profilePictureUrl }: CvPreviewProps) {
   const { personalInfo, summary, experience, education, skills } = cvData;
 
-  const personalDetails = (
+  const personalDetailsContent = (
     <>
       <div className="flex flex-col items-center text-center">
          <div className="relative w-36 h-36 rounded-full overflow-hidden shrink-0 border-4 border-white shadow-md mb-4">
@@ -85,14 +85,16 @@ export function CvPreview({ cvData, profilePictureUrl }: CvPreviewProps) {
         className="w-full max-w-[210mm] min-h-[297mm] bg-card text-card-foreground shadow-lg mx-auto flex font-body"
         style={{ fontFamily: "'Inter', sans-serif" }}
       >
-        {/* Left Column */}
-        <aside className="print-aside-col w-1/3 bg-primary/5 p-8 flex-col text-sm text-foreground/80 screen-only">
-          {personalDetails}
+        {/* Left Column - Screen Only */}
+        <aside className="print-aside-col w-1/3 bg-primary/5 p-8 flex-col text-sm text-foreground/80">
+          {personalDetailsContent}
         </aside>
 
-        {/* Right Column */}
+        {/* Right Column - Main content for screen and print */}
         <main className="print-main-col w-full lg:w-2/3 p-10 bg-card">
-           <div className="print-only hidden mb-8">{personalDetails}</div>
+           {/* Personal details for print only */}
+           <div className="print-only mb-8">{personalDetailsContent}</div>
+           
            <Section title="Résumé" icon={<FileText className="w-5 h-5" />}>
              <p className="leading-relaxed text-justify">{summary}</p>
           </Section>
