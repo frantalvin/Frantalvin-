@@ -42,12 +42,14 @@ export function CVArchitectApp() {
   return (
     <div className="flex flex-col h-screen bg-background">
       <CvHeader />
-      <div className="grid md:grid-cols-2 flex-1">
-        <div className="no-print bg-card border-r h-full overflow-y-auto">
-          <CvEditor form={form} onImageUpload={handleImageUpload} />
-        </div>
-        <div className="w-full h-full overflow-y-auto bg-muted/50">
-          <CvPreview cvData={cvData} profilePictureUrl={profilePictureUrl} />
+      <div className="flex-1 overflow-x-auto">
+        <div className="flex h-full min-w-[1200px]">
+            <div className="w-1/2 no-print bg-card border-r h-full overflow-y-auto">
+              <CvEditor form={form} onImageUpload={handleImageUpload} />
+            </div>
+            <div className="w-1/2 h-full overflow-y-auto bg-muted/50">
+              <CvPreview cvData={cvData} profilePictureUrl={profilePictureUrl} />
+            </div>
         </div>
       </div>
     </div>
