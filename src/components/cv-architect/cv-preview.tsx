@@ -105,7 +105,7 @@ export function CvPreview({ cvData, profilePictureUrl }: CvPreviewProps) {
   return (
     <div
       id="cv-preview-container"
-      className="w-full max-w-[210mm] min-h-[297mm] bg-card text-card-foreground shadow-lg mx-auto my-12 flex font-body"
+      className="w-[210mm] min-h-[297mm] bg-card text-card-foreground shadow-lg mx-auto my-12 flex font-body"
       style={{ fontFamily: "'Segoe UI', sans-serif" }}
     >
       {/* --- Screen Only Version --- */}
@@ -142,7 +142,7 @@ export function CvPreview({ cvData, profilePictureUrl }: CvPreviewProps) {
         )}
 
         {education.length > 0 && (
-          <Section title="Parcours Académique" icon={<GraduationCap className="w-4 h-4" />}>
+          <Section title="Formation" icon={<GraduationCap className="w-4 h-4" />}>
             <div className="space-y-4">
               {education.map((edu) => (
                 <div key={edu.id}>

@@ -40,7 +40,7 @@ const sections = [
   },
   {
     value: "education",
-    title: "Parcours Académique",
+    title: "Formation",
     Icon: GraduationCap,
     Component: EducationForm,
   },
