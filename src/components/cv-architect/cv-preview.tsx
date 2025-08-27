@@ -142,7 +142,7 @@ export function CvPreview({ cvData, profilePictureUrl }: CvPreviewProps) {
         )}
 
         {education.length > 0 && (
-          <Section title="Formation" icon={<GraduationCap className="w-4 h-4" />}>
+          <Section title="Parcours Académique" icon={<GraduationCap className="w-4 h-4" />}>
             <div className="space-y-4">
               {education.map((edu) => (
                 <div key={edu.id}>
